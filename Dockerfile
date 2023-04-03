@@ -1,9 +1,8 @@
 FROM runmymind/docker-android-sdk:alpine-standalone
 
-RUN echo "safe-perm=true" > ~/.npmrc && \
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.16/main/ nodejs=16.20.0-r0  npm \
+    echo "safe-perm=true" > ~/.npmrc && \
     npm install -g cordova
-
-ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk"
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 
