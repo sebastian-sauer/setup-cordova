@@ -8,8 +8,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
 # Setup Gradle
 RUN wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp && \
     unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip
-ENV GRADLE_HOME=/opt/gradle/gradle-7.4.2
-RUN export PATH="${GRADLE_HOME}/bin:${PATH}"
+RUN export GRADLE_HOME="/opt/gradle/gradle-7.4.2" && export PATH="${GRADLE_HOME}/bin:${PATH}"
 
 # Setup Cordova
 RUN npm i -g cordova@11.1.0
