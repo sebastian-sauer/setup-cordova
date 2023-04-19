@@ -1,8 +1,7 @@
 FROM runmymind/docker-android-sdk:ubuntu-standalone
 
 # Setup NodeJS
-RUN apt-get remove -f -y nodejs npm && \
-    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     echo "safe-perm=true" > ~/.npmrc
     
