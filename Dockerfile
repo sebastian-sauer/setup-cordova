@@ -1,19 +1,19 @@
 FROM runmymind/docker-android-sdk:ubuntu-standalone
 
-# Install NodeJS
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash && \
-    sudo apt install -y nodejs
-
-# Install Gradle 7.4.2
+# Setup NodeJS
+RUN apt-get remove -f -y nodejs npm && \
+    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs && \
+    echo "safe-perm=true" > ~/.npmrc
+    
+# Setup Gradle
 RUN wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp && \
-    sudo unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip
-
-# Install Cordova 11.1.0
-RUN npm install -g cordova@11.1.0
-
-# Set Gradle PATH
-ENV GRADLE_HOME=/opt/gradle/latest/7.4.2
+    unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip
+ENV GRADLE_HOME=/opt/gradle/7.4.2
 RUN export PATH="${GRADLE_HOME}/bin:${PATH}"
+
+# Setup Cordova
+RUN npm i -g cordova@11.1.0
 
 COPY entrypoint.sh /usr/src/entrypoint.sh
 
